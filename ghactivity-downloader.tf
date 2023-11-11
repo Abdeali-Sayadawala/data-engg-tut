@@ -1,5 +1,5 @@
 locals {
-    function_name = 'ghactivity-downloader'
+    function_name = "ghactivity-downloader"
 }
 
 data "aws_s3_bucket_object" "scripts_bucket" {
