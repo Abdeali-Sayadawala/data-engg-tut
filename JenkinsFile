@@ -27,19 +27,16 @@ pipeline {
                 }
             }
         }
-        // stage('Terraform Deployment') {
-        //     steps {
-        //         script {
-        //             // CD into deployment folder and run terraform commands
-        //             dir('deployment') {
-        //                 sh '''
-        //                     terraform init
-        //                     terraform plan
-        //                     terraform apply -auto-approve
-        //                 '''
-        //             }
-        //         }
-        //     }
-        // }
+        stage('Lambda Deployment') {
+            steps {
+                script {
+                        sh '''
+                            terraform init
+                            terraform plan
+                            terraform apply -auto-approve
+                        '''
+                    }
+            }
+        }
     }
 }
