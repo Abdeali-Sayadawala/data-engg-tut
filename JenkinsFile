@@ -16,8 +16,9 @@ pipeline {
                         sh '''
                             for directory in */; do
                                 echo "$directory"
-                                echo "pwd"
+                                echo pwd
                                 cd $directory
+                                echo pwd
                                 zip -r $directory.zip ./
                                 aws s3 cp $directory.zip s3://jenkins-deploy-dataengg-tut/scripts/
                                 rm -rf $directory.zip
