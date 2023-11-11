@@ -14,5 +14,5 @@ resource "aws_lambda_function" "ghactivity_downloader_lambda" {
     s3_bucket = data.aws_s3_bucket_object.scripts_bucket
     s3_key = data.aws_s3_bucket_object.scripts_bucket.key
     runtime = ""
-    timeout = "1000"
+    timeout = "800"
 }
