@@ -1,0 +1,46 @@
+pipeline {
+    agent any
+
+    stages {
+        stage('Checkout Code') {
+            steps {
+                // Pull the git repo
+                cleanWs()
+                checkout scm
+            }
+        }
+        stage('Preparing codebase'){
+            steps {
+                script{
+                    dir('scritps'){
+                        sh '''
+                            for directory in */; do
+                                echo "$directory"
+                                echo "pwd"
+                                cd $directory
+                                zip -r $directory.zip ./
+                                aws s3 cp $directory.zip s3://jenkins-deploy-dataengg-tut/scripts/
+                                rm -rf $directory.zip
+                                cd ..
+                            done
+                        '''
+                    }
+                }
+            }
+        }
+        // stage('Terraform Deployment') {
+        //     steps {
+        //         script {
+        //             // CD into deployment folder and run terraform commands
+        //             dir('deployment') {
+        //                 sh '''
+        //                     terraform init
+        //                     terraform plan
+        //                     terraform apply -auto-approve
+        //                 '''
+        //             }
+        //         }
+        //     }
+        // }
+    }
+}
